@@ -1,130 +1,126 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  ScrollView,
-  StatusBar,
+  ActivityIndicator,
   StyleSheet,
   Text,
-  useColorScheme,
+  TextInput,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  // state for loading
+  const [loading, setLoading] = useState<boolean>(true);
+  // states for quote details
+  const [quote, setQuote] = useState<string>();
+  const [author, setAuthor] = useState<string>();
+  const [error, setError] = useState<any>(null);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  // fetching the quote
+  useEffect(() => {
+    //fetching the quote from an API
+    const fetchQuote = async () => {
+      try {
+        const response = await fetch('https://zenquotes.io/api/today');
+        const data = await response.json();
+        setQuote(data[0].q);
+        setAuthor(data[0].a);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  /*
-   * To keep the template simple and small we're adding padding to prevent view
-   * from rendering under the System UI.
-   * For bigger apps the reccomendation is to use `react-native-safe-area-context`:
-   * https://github.com/AppAndFlow/react-native-safe-area-context
-   *
-   * You can read more about it here:
-   * https://github.com/react-native-community/discussions-and-proposals/discussions/827
-   */
-  const safePadding = '5%';
+    fetchQuote();
+  }, []);
+
+  useEffect(() => {
+    if (error) console.error('Error in App: ' + JSON.stringify(error));
+  }, [error]);
 
   return (
-    <View style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        style={backgroundStyle}>
-        <View style={{paddingRight: safePadding}}>
-          <Header/>
+    <View style={{marginHorizontal: 10}}>
+      <Text style={styles.title}>Diario</Text>
+      <Text style={{textAlign: 'center', fontSize: 30}}>1 2 3 4 5 6 7 8 9</Text>
+
+      {/* Day journaling */}
+      <View style={styles.contentView}>
+        {/* switch */}
+        <View style={styles.switchStyle}>
+          <Text>Sun icon</Text>
+          <Text>Moon icon</Text>
         </View>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            paddingHorizontal: safePadding,
-            paddingBottom: safePadding,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+
+        {/* Activity Indicator */}
+        {loading && (
+          <ActivityIndicator
+            size={'large'}
+            color={'black'}
+            style={styles.quote}
+          />
+        )}
+
+        {/* Daily quote */}
+        {quote && !error && <Text style={styles.quote}>{quote}</Text>}
+
+        {/* Daily Inputs */}
+        <Text>Todays' intention</Text>
+        <TextInput
+          placeholder="Todays' intention"
+          style={styles.inputText}
+          multiline
+        />
+        <Text>I am grateful for</Text>
+        <TextInput
+          placeholder="I am grateful for ..."
+          style={styles.inputText}
+          multiline
+        />
+        <Text>What would make today great</Text>
+        <TextInput
+          placeholder="I want to do ..."
+          style={styles.inputText}
+          multiline
+        />
+        <Text>Daily affirmations, I am...</Text>
+        <TextInput placeholder="I am ..." style={styles.inputText} multiline />
+      </View>
+      {/* Night journaling */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginVertical: 15,
+    textAlign: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  contentView: {
+    marginVertical: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  sectionDescription: {
-    marginTop: 8,
+  switchStyle: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    width: '100%',
+    marginBottom: 20,
+    paddingHorizontal: 20,
+  },
+  inputText: {
+    width: '100%',
+    borderBottomWidth: 1,
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  quote: {
     fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+    fontWeight: 'bold',
+    marginBottom: 30,
+    textAlign: 'center',
   },
 });
 
