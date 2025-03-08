@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -14,6 +15,11 @@ function App(): React.JSX.Element {
   const [quote, setQuote] = useState<string>();
   const [author, setAuthor] = useState<string>();
   const [error, setError] = useState<any>(null);
+  //states for the InputText's
+  const [intention, setIntention] = useState<string>();
+  const [grateful, setGrateful] = useState<string>();
+  const [today, setToday] = useState<string>();
+  const [affirmations, setAffirmations] = useState<string>();
 
   // fetching the quote
   useEffect(() => {
@@ -61,31 +67,62 @@ function App(): React.JSX.Element {
         )}
 
         {/* Daily quote */}
-        {quote && !error && <Text style={styles.quote}>{quote}</Text>}
+        {quote && !error && (
+          <Text style={styles.quote}>
+            {quote} - {author}
+          </Text>
+        )}
 
         {/* Daily Inputs */}
-        <Text>Todays' intention</Text>
-        <TextInput
-          placeholder="Todays' intention"
-          style={styles.inputText}
-          multiline
-        />
-        <Text>I am grateful for</Text>
-        <TextInput
-          placeholder="I am grateful for ..."
-          style={styles.inputText}
-          multiline
-        />
-        <Text>What would make today great</Text>
-        <TextInput
-          placeholder="I want to do ..."
-          style={styles.inputText}
-          multiline
-        />
-        <Text>Daily affirmations, I am...</Text>
-        <TextInput placeholder="I am ..." style={styles.inputText} multiline />
+        <>
+          <Text>Todays' intention</Text>
+          <TextInput
+            placeholder="Todays' intention"
+            style={styles.inputText}
+            multiline
+            value={intention}
+            onChangeText={setIntention}
+          />
+          <Text>I am grateful for</Text>
+          <TextInput
+            placeholder="I am grateful for ..."
+            style={styles.inputText}
+            multiline
+            value={grateful}
+            onChangeText={setGrateful}
+          />
+          <Text>What would make today great</Text>
+          <TextInput
+            placeholder="I want to do ..."
+            style={styles.inputText}
+            multiline
+            value={today}
+            onChangeText={setGrateful}
+          />
+          <Text>Daily affirmations, I am...</Text>
+          <TextInput
+            placeholder="I am ..."
+            style={styles.inputText}
+            multiline
+            value={affirmations}
+            onChangeText={setAffirmations}
+          />
+        </>
       </View>
       {/* Night journaling */}
+      {/* Submit button */}
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <TouchableOpacity
+          style={{
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            borderWidth: 0.5,
+            borderColor: 'black',
+            borderRadius: 5,
+          }}>
+          <Text>Submit</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
