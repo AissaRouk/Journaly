@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Alert,
+  Modal,
   StyleSheet,
   Text,
   TextInput,
@@ -20,6 +22,9 @@ function App(): React.JSX.Element {
   const [grateful, setGrateful] = useState<string>();
   const [today, setToday] = useState<string>();
   const [affirmations, setAffirmations] = useState<string>();
+  //state for the modal
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [errorInSubmition, setErrorInSubmition] = useState<boolean>(false);
 
   // fetching the quote
   useEffect(() => {
@@ -43,6 +48,38 @@ function App(): React.JSX.Element {
   useEffect(() => {
     if (error) console.error('Error in App: ' + JSON.stringify(error));
   }, [error]);
+
+  // useEffect to show the Modal only for 3 seconds
+  useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => {
+        setSubmitted(false);
+      }, 3000); // Hide message after 3 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [submitted]);
+
+  // useEffect to show the Modal only for 3 seconds
+  useEffect(() => {
+    if (errorInSubmition) {
+      const timer = setTimeout(() => {
+        setErrorInSubmition(false);
+      }, 3000); // Hide message after 3 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [errorInSubmition]);
+
+  const handleOnSubmit = () => {
+    if (intention && grateful && today && affirmations) {
+      setSubmitted(true);
+      setIntention('');
+      setGrateful('');
+      setToday('');
+      setAffirmations('');
+    } else {
+      setErrorInSubmition(true);
+    }
+  };
 
   return (
     <View style={{marginHorizontal: 10}}>
@@ -69,7 +106,7 @@ function App(): React.JSX.Element {
         {/* Daily quote */}
         {quote && !error && (
           <Text style={styles.quote}>
-            {quote} - {author}
+            {quote} {'\n'} {author}
           </Text>
         )}
 
@@ -97,7 +134,7 @@ function App(): React.JSX.Element {
             style={styles.inputText}
             multiline
             value={today}
-            onChangeText={setGrateful}
+            onChangeText={setToday}
           />
           <Text>Daily affirmations, I am...</Text>
           <TextInput
@@ -109,10 +146,11 @@ function App(): React.JSX.Element {
           />
         </>
       </View>
-      {/* Night journaling */}
+
       {/* Submit button */}
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <TouchableOpacity
+          onPress={() => handleOnSubmit()}
           style={{
             paddingHorizontal: 20,
             paddingVertical: 10,
@@ -123,6 +161,32 @@ function App(): React.JSX.Element {
           <Text>Submit</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Modal */}
+      <Modal
+        visible={submitted || errorInSubmition}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => {
+          setSubmitted(false);
+          setErrorInSubmition(false);
+        }}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            {submitted && (
+              <Text style={styles.modalText}>
+                Great job, another day working on yourself, I'm proud of you!!
+              </Text>
+            )}
+            {errorInSubmition && (
+              <Text style={styles.modalText}>
+                Please fill all the forms, if you don't feel like filling one of
+                them, fill it with a dot
+              </Text>
+            )}
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -158,6 +222,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 30,
     textAlign: 'center',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+  },
+  modalContent: {
+    width: 200,
+    height: 200,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  modalText: {
+    textAlign: 'center',
+    fontSize: 16,
   },
 });
 
