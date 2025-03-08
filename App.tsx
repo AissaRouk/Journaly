@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Modal,
   StyleSheet,
   Text,
@@ -70,15 +69,39 @@ function App(): React.JSX.Element {
   }, [errorInSubmition]);
 
   const handleOnSubmit = () => {
+    //if all forms filled, show success modal
     if (intention && grateful && today && affirmations) {
       setSubmitted(true);
       setIntention('');
       setGrateful('');
       setToday('');
       setAffirmations('');
-    } else {
+    }
+    // if not, show alert Modal
+    else {
       setErrorInSubmition(true);
     }
+  };
+
+  //Form component
+  const FormComponent: React.FC<{
+    title: string;
+    placeholder: string;
+    value: string | undefined;
+    onChangeText: (text: string) => void;
+  }> = ({title, placeholder, value, onChangeText}) => {
+    return (
+      <>
+        <Text>{title}</Text>
+        <TextInput
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChangeText}
+          style={styles.inputText}
+          multiline
+        />
+      </>
+    );
   };
 
   return (
@@ -112,35 +135,27 @@ function App(): React.JSX.Element {
 
         {/* Daily Inputs */}
         <>
-          <Text>Todays' intention</Text>
-          <TextInput
+          <FormComponent
+            title="Todays' intention"
             placeholder="Todays' intention"
-            style={styles.inputText}
-            multiline
             value={intention}
             onChangeText={setIntention}
           />
-          <Text>I am grateful for</Text>
-          <TextInput
+          <FormComponent
+            title="I am grateful for"
             placeholder="I am grateful for ..."
-            style={styles.inputText}
-            multiline
             value={grateful}
             onChangeText={setGrateful}
           />
-          <Text>What would make today great</Text>
-          <TextInput
+          <FormComponent
+            title="What would make today great"
             placeholder="I want to do ..."
-            style={styles.inputText}
-            multiline
             value={today}
             onChangeText={setToday}
           />
-          <Text>Daily affirmations, I am...</Text>
-          <TextInput
+          <FormComponent
+            title="Daily affirmations, I am..."
             placeholder="I am ..."
-            style={styles.inputText}
-            multiline
             value={affirmations}
             onChangeText={setAffirmations}
           />
@@ -230,13 +245,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
   },
   modalContent: {
-    width: 200,
-    height: 200,
     backgroundColor: 'white',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    marginHorizontal: 20,
   },
   modalText: {
     textAlign: 'center',
