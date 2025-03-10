@@ -17,10 +17,10 @@ function App(): React.JSX.Element {
   const [author, setAuthor] = useState<string>();
   const [error, setError] = useState<any>(null);
   //states for the InputText's
-  const [intention, setIntention] = useState<string>();
-  const [grateful, setGrateful] = useState<string>();
-  const [today, setToday] = useState<string>();
-  const [affirmations, setAffirmations] = useState<string>();
+  const [intention, setIntention] = useState<string>('');
+  const [grateful, setGrateful] = useState<string>('');
+  const [today, setToday] = useState<string>('');
+  const [affirmations, setAffirmations] = useState<string>('');
   //state for the modal
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [errorInSubmition, setErrorInSubmition] = useState<boolean>(false);
@@ -83,27 +83,6 @@ function App(): React.JSX.Element {
     }
   };
 
-  //Form component
-  const FormComponent: React.FC<{
-    title: string;
-    placeholder: string;
-    value: string | undefined;
-    onChangeText: (text: string) => void;
-  }> = ({title, placeholder, value, onChangeText}) => {
-    return (
-      <>
-        <Text>{title}</Text>
-        <TextInput
-          placeholder={placeholder}
-          value={value}
-          onChangeText={onChangeText}
-          style={styles.inputText}
-          multiline
-        />
-      </>
-    );
-  };
-
   return (
     <View style={{marginHorizontal: 10}}>
       <Text style={styles.title}>Diario</Text>
@@ -135,29 +114,43 @@ function App(): React.JSX.Element {
 
         {/* Daily Inputs */}
         <>
-          <FormComponent
+          {/* <FormComponent
             title="Todays' intention"
             placeholder="Todays' intention"
             value={intention}
+            handleOnChangeText={setIntention}
+          /> */}
+          <Text>Todays' intention</Text>
+          <TextInput
+            placeholder={"Todays' intention"}
+            value={intention}
             onChangeText={setIntention}
+            style={styles.inputText}
+            multiline
           />
-          <FormComponent
-            title="I am grateful for"
-            placeholder="I am grateful for ..."
+          <Text>I am grateful for</Text>
+          <TextInput
+            placeholder={'I am grateful for'}
             value={grateful}
             onChangeText={setGrateful}
+            style={styles.inputText}
+            multiline
           />
-          <FormComponent
-            title="What would make today great"
-            placeholder="I want to do ..."
+          <Text>What would make today great</Text>
+          <TextInput
+            placeholder={'What would make today great'}
             value={today}
             onChangeText={setToday}
+            style={styles.inputText}
+            multiline
           />
-          <FormComponent
-            title="Daily affirmations, I am..."
-            placeholder="I am ..."
-            value={affirmations}
-            onChangeText={setAffirmations}
+          <Text>Daily affirmations, I am...</Text>
+          <TextInput
+            placeholder={'I am ...'}
+            value={intention}
+            onChangeText={setIntention}
+            style={styles.inputText}
+            multiline
           />
         </>
       </View>
