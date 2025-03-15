@@ -83,10 +83,27 @@ function App(): React.JSX.Element {
     }
   };
 
+  const InputField: React.FC<{
+    label: string;
+    value: string;
+    onChangeText: (text: string) => void;
+  }> = ({label, value, onChangeText}) => {
+    return (
+      <>
+        <Text>{label}</Text>
+        <TextInput
+          style={styles.inputText}
+          placeholder={'...'}
+          value={value}
+          onChangeText={onChangeText}
+        />
+      </>
+    );
+  };
+
   return (
     <View style={{marginHorizontal: 10}}>
-      <Text style={styles.title}>Diario</Text>
-      <Text style={{textAlign: 'center', fontSize: 30}}>1 2 3 4 5 6 7 8 9</Text>
+      <Text style={styles.title}>Diary</Text>
 
       {/* Day journaling */}
       <View style={styles.contentView}>
@@ -114,43 +131,25 @@ function App(): React.JSX.Element {
 
         {/* Daily Inputs */}
         <>
-          {/* <FormComponent
-            title="Todays' intention"
-            placeholder="Todays' intention"
-            value={intention}
-            handleOnChangeText={setIntention}
-          /> */}
-          <Text>Todays' intention</Text>
-          <TextInput
-            placeholder={"Todays' intention"}
+          <InputField
+            label={"Todays' intention"}
             value={intention}
             onChangeText={setIntention}
-            style={styles.inputText}
-            multiline
           />
-          <Text>I am grateful for</Text>
-          <TextInput
-            placeholder={'I am grateful for'}
+          <InputField
+            label={'I am grateful for'}
             value={grateful}
             onChangeText={setGrateful}
-            style={styles.inputText}
-            multiline
           />
-          <Text>What would make today great</Text>
-          <TextInput
-            placeholder={'What would make today great'}
+          <InputField
+            label={'What would make today great'}
             value={today}
             onChangeText={setToday}
-            style={styles.inputText}
-            multiline
           />
-          <Text>Daily affirmations, I am...</Text>
-          <TextInput
-            placeholder={'I am ...'}
-            value={intention}
-            onChangeText={setIntention}
-            style={styles.inputText}
-            multiline
+          <InputField
+            label={'Daily affirmations, I am...'}
+            value={affirmations}
+            onChangeText={setAffirmations}
           />
         </>
       </View>
