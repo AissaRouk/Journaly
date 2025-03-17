@@ -83,6 +83,8 @@ function App(): React.JSX.Element {
     }
   };
 
+  //Components
+
   const InputField: React.FC<{
     label: string;
     value: string;
@@ -101,6 +103,32 @@ function App(): React.JSX.Element {
     );
   };
 
+  //all the inputs of the day
+  const MorningInputs: React.FC = () => (
+    <>
+      <InputField
+        label={'I am grateful for'}
+        value={grateful}
+        onChangeText={setGrateful}
+      />
+      <InputField
+        label={'What would make today great'}
+        value={today}
+        onChangeText={setToday}
+      />
+      <InputField
+        label={'Daily affirmations, I am...'}
+        value={affirmations}
+        onChangeText={setAffirmations}
+      />
+      <InputField
+        label={"Todays' intention"}
+        value={intention}
+        onChangeText={setIntention}
+      />
+    </>
+  );
+
   return (
     <View style={{marginHorizontal: 10}}>
       <Text style={styles.title}>Diary</Text>
@@ -114,44 +142,18 @@ function App(): React.JSX.Element {
         </View>
 
         {/* Activity Indicator */}
-        {loading && (
-          <ActivityIndicator
-            size={'large'}
-            color={'black'}
-            style={styles.quote}
-          />
-        )}
+        {loading && <ActivityIndicator size={'large'} color={'black'} />}
 
         {/* Daily quote */}
         {quote && !error && (
-          <Text style={styles.quote}>
-            {quote} {'\n'} {author}
-          </Text>
+          <>
+            <Text style={styles.quote}>{quote}</Text>
+            <Text style={[styles.quote, {marginBottom: 30}]}>{author}</Text>
+          </>
         )}
 
         {/* Daily Inputs */}
-        <>
-          <InputField
-            label={"Todays' intention"}
-            value={intention}
-            onChangeText={setIntention}
-          />
-          <InputField
-            label={'I am grateful for'}
-            value={grateful}
-            onChangeText={setGrateful}
-          />
-          <InputField
-            label={'What would make today great'}
-            value={today}
-            onChangeText={setToday}
-          />
-          <InputField
-            label={'Daily affirmations, I am...'}
-            value={affirmations}
-            onChangeText={setAffirmations}
-          />
-        </>
+        <MorningInputs />
       </View>
 
       {/* Submit button */}
@@ -227,7 +229,6 @@ const styles = StyleSheet.create({
   quote: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 30,
     textAlign: 'center',
   },
   modalOverlay: {
