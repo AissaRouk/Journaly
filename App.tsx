@@ -112,11 +112,13 @@ function App(): React.JSX.Element {
 
   //Components
 
+  // Custom input field
   const InputField: React.FC<{
     title: string;
     value: string;
+    multiline?: boolean;
     onChangeText: (text: string) => void;
-  }> = ({title, value, onChangeText}) => {
+  }> = ({title, value, onChangeText, multiline}) => {
     return (
       <>
         <Text>{title}</Text>
@@ -125,6 +127,7 @@ function App(): React.JSX.Element {
           placeholder={'...'}
           value={value}
           onChangeText={onChangeText}
+          multiline={multiline}
         />
       </>
     );
@@ -229,6 +232,7 @@ function App(): React.JSX.Element {
             value={highlight}
             onChangeText={setHighlight}
             title="5 min. reflection"
+            multiline
           />
         </>
       </>
@@ -241,12 +245,6 @@ function App(): React.JSX.Element {
 
       {/* Day journaling */}
       <View style={styles.contentView}>
-        {/* switch */}
-        <View style={styles.switchStyle}>
-          <Text>Sun icon</Text>
-          <Text>Moon icon</Text>
-        </View>
-
         {/* Activity Indicator */}
         {loading && <ActivityIndicator size={'large'} color={'black'} />}
 
