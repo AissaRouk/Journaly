@@ -159,16 +159,32 @@ function App(): React.JSX.Element {
           }}>
           {/* counter for rating your day */}
           {counter.map((item, key) => (
-            <Text
+            <TouchableOpacity
               key={key}
-              style={{
-                color: 'black',
-                textAlign: 'center',
-                fontSize: 18,
-                marginHorizontal: 10,
-              }}>
-              {item}
-            </Text>
+              onPress={() => setTodaysRating(item)}
+              style={[
+                todaysRating == item && {
+                  backgroundColor: 'black',
+                  borderRadius: 10,
+                  height: 30,
+                  width: 30,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                },
+              ]}>
+              <Text
+                style={[
+                  {
+                    color: 'black',
+                    textAlign: 'center',
+                    fontSize: 18,
+                    marginHorizontal: 10,
+                  },
+                  todaysRating == item && {color: 'white'},
+                ]}>
+                {item}
+              </Text>
+            </TouchableOpacity>
           ))}
         </ScrollView>
         <InputField
