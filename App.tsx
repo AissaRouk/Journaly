@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Modal,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -12,15 +13,25 @@ import {
 function App(): React.JSX.Element {
   // state for loading
   const [loading, setLoading] = useState<boolean>(true);
+
   // states for quote details
   const [quote, setQuote] = useState<string>();
   const [author, setAuthor] = useState<string>();
   const [error, setError] = useState<any>(null);
+
   //states for the InputText's
+  //morning inputs
   const [intention, setIntention] = useState<string>('');
   const [grateful, setGrateful] = useState<string>('');
   const [today, setToday] = useState<string>('');
   const [affirmations, setAffirmations] = useState<string>('');
+  //night iputs
+  const [todaysRating, setTodaysRating] = useState<number>();
+  const [thank, setThank] = useState<string>('');
+  const [greatThings, setGreatThings] = useState<string>('');
+  const [highlight, setHighlight] = useState<string>('');
+  const counter: number[] = [1, 2, 3, 4, 5];
+
   //state for the modal
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [errorInSubmition, setErrorInSubmition] = useState<boolean>(false);
@@ -107,27 +118,58 @@ function App(): React.JSX.Element {
   const MorningInputs: React.FC = () => (
     <>
       <InputField
-        label={'I am grateful for'}
+        title={'I am grateful for'}
         value={grateful}
         onChangeText={setGrateful}
       />
       <InputField
-        label={'What would make today great'}
+        title={'What would make today great'}
         value={today}
         onChangeText={setToday}
       />
       <InputField
-        label={'Daily affirmations, I am...'}
+        title={'Daily affirmations, I am...'}
         value={affirmations}
         onChangeText={setAffirmations}
       />
       <InputField
-        label={"Todays' intention"}
+        title={"Todays' intention"}
         value={intention}
         onChangeText={setIntention}
       />
     </>
   );
+
+  //all the inputs of the night
+  const NigthInputs: React.FC = () => {
+    return (
+      <>
+        <ScrollView horizontal>
+          {/* counter for rating your day */}
+          {counter.map((item, key) => (
+            <Text key={key} style={{color: 'black'}}>
+              {item}
+            </Text>
+          ))}
+        </ScrollView>
+        <InputField
+          value={thank}
+          onChangeText={setThank}
+          title="I thank myself today for..."
+        />
+        <InputField
+          value={greatThings}
+          onChangeText={setGreatThings}
+          title="3 great things that happened today..."
+        />
+        <InputField
+          value={highlight}
+          onChangeText={setHighlight}
+          title="5 min. reflection"
+        />
+      </>
+    );
+  };
 
   return (
     <View style={{marginHorizontal: 10}}>
@@ -153,7 +195,9 @@ function App(): React.JSX.Element {
         )}
 
         {/* Daily Inputs */}
-        <MorningInputs />
+        {/* <MorningInputs /> */}
+        {/* Night Inputs */}
+        <NigthInputs />
       </View>
 
       {/* Submit button */}
