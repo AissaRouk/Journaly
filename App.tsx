@@ -86,13 +86,13 @@ function App(): React.JSX.Element {
   //Components
 
   const InputField: React.FC<{
-    label: string;
+    title: string;
     value: string;
     onChangeText: (text: string) => void;
-  }> = ({label, value, onChangeText}) => {
+  }> = ({title, value, onChangeText}) => {
     return (
       <>
-        <Text>{label}</Text>
+        <Text>{title}</Text>
         <TextInput
           style={styles.inputText}
           placeholder={'...'}
