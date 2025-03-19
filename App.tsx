@@ -144,10 +144,29 @@ function App(): React.JSX.Element {
   const NigthInputs: React.FC = () => {
     return (
       <>
-        <ScrollView horizontal>
+        <Text
+          style={[{textAlign: 'center', marginBottom: 15}, styles.ratingText]}>
+          Rate today from 1 to 5
+        </Text>
+        <ScrollView
+          horizontal
+          contentContainerStyle={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            width: '100%', // Ensures full width for proper centering
+            marginBottom: 30,
+          }}>
           {/* counter for rating your day */}
           {counter.map((item, key) => (
-            <Text key={key} style={{color: 'black'}}>
+            <Text
+              key={key}
+              style={{
+                color: 'black',
+                textAlign: 'center',
+                fontSize: 18,
+                marginHorizontal: 10,
+              }}>
               {item}
             </Text>
           ))}
@@ -172,7 +191,7 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <View style={{marginHorizontal: 10}}>
+    <View style={{marginHorizontal: 10, backgroundColor: '#FAF8F5'}}>
       <Text style={styles.title}>Diary</Text>
 
       {/* Day journaling */}
@@ -246,52 +265,94 @@ function App(): React.JSX.Element {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 30,
+    fontSize: 32,
     fontWeight: 'bold',
-    marginVertical: 15,
     textAlign: 'center',
+    marginVertical: 20,
+    fontFamily: 'serif',
+    color: '#2E2E2E',
   },
   contentView: {
     marginVertical: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 15,
+    backgroundColor: '#FAF8F5',
+
+    paddingVertical: 20,
   },
   switchStyle: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
     flexDirection: 'row',
-    width: '100%',
-    marginBottom: 20,
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 20,
+    marginBottom: 15,
   },
   inputText: {
     width: '100%',
     borderBottomWidth: 1,
-    textAlign: 'center',
-    marginBottom: 40,
+    borderColor: '#8B8B8B',
+    textAlign: 'left',
+    fontSize: 16,
+    paddingBottom: 5,
+    marginBottom: 20,
+    fontFamily: 'serif',
+    color: '#2E2E2E',
   },
   quote: {
     fontSize: 18,
     fontWeight: 'bold',
+    fontStyle: 'italic',
     textAlign: 'center',
+    color: '#4F4F4F',
+    marginVertical: 10,
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+  ratingText: {
+    fontSize: 18,
+    marginHorizontal: 5,
+    color: '#2E2E2E',
   },
   modalOverlay: {
     flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
   },
   modalContent: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#FFF',
     padding: 20,
-    marginHorizontal: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    width: '80%',
   },
   modalText: {
+    fontSize: 18,
     textAlign: 'center',
-    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#4F4F4F',
+  },
+  submitButton: {
+    backgroundColor: '#E3D5C9',
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#C2B8A3',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 2,
+    marginTop: 20,
+  },
+  submitButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#2E2E2E',
   },
 });
 
