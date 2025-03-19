@@ -31,6 +31,8 @@ function App(): React.JSX.Element {
   const [greatThings, setGreatThings] = useState<string>('');
   const [highlight, setHighlight] = useState<string>('');
   const counter: number[] = [1, 2, 3, 4, 5];
+  //time states
+  const [isNight, setIsNight] = useState<boolean>(false);
 
   //state for the modal
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -78,6 +80,20 @@ function App(): React.JSX.Element {
       return () => clearTimeout(timer);
     }
   }, [errorInSubmition]);
+
+  //useEffect to check the time
+  useEffect(() => {
+    const checkTime = () => {
+      const hours = new Date().getHours(); // Get current hour (0-23)
+      setIsNight(hours >= 18 || hours < 6); // Night is from 6 PM to 6 AM
+    };
+
+    checkTime(); // Run on mount
+
+    const interval = setInterval(checkTime, 300000); // Check every 5 minutes
+
+    return () => clearInterval(interval); // Cleanup
+  }, []);
 
   const handleOnSubmit = () => {
     //if all forms filled, show success modal
@@ -140,6 +156,51 @@ function App(): React.JSX.Element {
     </>
   );
 
+  // counter for rating
+  const CounterComponent: React.FC = () => {
+    return (
+      <ScrollView
+        horizontal
+        contentContainerStyle={{
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          width: '100%', // Ensures full width for proper centering
+          marginBottom: 30,
+        }}>
+        {/* counter for rating your day */}
+        {counter.map((item, key) => (
+          <TouchableOpacity
+            key={key}
+            onPress={() => setTodaysRating(item)}
+            style={[
+              todaysRating == item && {
+                backgroundColor: 'black',
+                borderRadius: 10,
+                height: 30,
+                width: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+              },
+            ]}>
+            <Text
+              style={[
+                {
+                  color: 'black',
+                  textAlign: 'center',
+                  fontSize: 18,
+                  marginHorizontal: 10,
+                },
+                todaysRating == item && {color: 'white'},
+              ]}>
+              {item}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    );
+  };
+
   //all the inputs of the night
   const NigthInputs: React.FC = () => {
     return (
@@ -148,60 +209,28 @@ function App(): React.JSX.Element {
           style={[{textAlign: 'center', marginBottom: 15}, styles.ratingText]}>
           Rate today from 1 to 5
         </Text>
-        <ScrollView
-          horizontal
-          contentContainerStyle={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            width: '100%', // Ensures full width for proper centering
-            marginBottom: 30,
-          }}>
-          {/* counter for rating your day */}
-          {counter.map((item, key) => (
-            <TouchableOpacity
-              key={key}
-              onPress={() => setTodaysRating(item)}
-              style={[
-                todaysRating == item && {
-                  backgroundColor: 'black',
-                  borderRadius: 10,
-                  height: 30,
-                  width: 30,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                },
-              ]}>
-              <Text
-                style={[
-                  {
-                    color: 'black',
-                    textAlign: 'center',
-                    fontSize: 18,
-                    marginHorizontal: 10,
-                  },
-                  todaysRating == item && {color: 'white'},
-                ]}>
-                {item}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-        <InputField
-          value={thank}
-          onChangeText={setThank}
-          title="I thank myself today for..."
-        />
-        <InputField
-          value={greatThings}
-          onChangeText={setGreatThings}
-          title="3 great things that happened today..."
-        />
-        <InputField
-          value={highlight}
-          onChangeText={setHighlight}
-          title="5 min. reflection"
-        />
+
+        {/* Counter component */}
+        <CounterComponent />
+
+        {/* InputFields */}
+        <>
+          <InputField
+            value={thank}
+            onChangeText={setThank}
+            title="I thank myself today for..."
+          />
+          <InputField
+            value={greatThings}
+            onChangeText={setGreatThings}
+            title="3 great things that happened today..."
+          />
+          <InputField
+            value={highlight}
+            onChangeText={setHighlight}
+            title="5 min. reflection"
+          />
+        </>
       </>
     );
   };
@@ -229,10 +258,8 @@ function App(): React.JSX.Element {
           </>
         )}
 
-        {/* Daily Inputs */}
-        {/* <MorningInputs /> */}
-        {/* Night Inputs */}
-        <NigthInputs />
+        {/* Input components depending on the daytime */}
+        {isNight ? <NigthInputs /> : <MorningInputs />}
       </View>
 
       {/* Submit button */}
