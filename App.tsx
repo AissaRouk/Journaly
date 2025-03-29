@@ -85,7 +85,7 @@ function App(): React.JSX.Element {
   useEffect(() => {
     const checkTime = () => {
       const hours = new Date().getHours(); // Get current hour (0-23)
-      // setIsNight(hours >= 18 || hours < 6); // Night is from 6 PM to 6 AM
+      setIsNight(hours >= 18 || hours < 6); // Night is from 6 PM to 6 AM
     };
 
     checkTime(); // Run on mount
@@ -247,7 +247,7 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <View style={{marginHorizontal: 10, backgroundColor: '#FAF8F5'}}>
+    <View style={styles.mainView}>
       <Text style={styles.title}>Diary</Text>
 
       {/* Day journaling */}
@@ -312,6 +312,13 @@ function App(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  mainView: {
+    marginHorizontal: 10,
+    backgroundColor: '#FAF8F5',
+    flex: 1,
+    justifyContent: 'center',
+    overflow: 'scroll',
+  },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -324,7 +331,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: '#FAF8F5',
-
     paddingVertical: 20,
   },
   inputText: {
