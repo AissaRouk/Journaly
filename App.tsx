@@ -42,6 +42,7 @@ function App(): React.JSX.Element {
   // fetching the quote
   useEffect(() => {
     //fetching the quote from an API
+    console.log('fetching quote');
     const fetchQuote = async () => {
       try {
         const response = await fetch('https://zenquotes.io/api/today');
@@ -116,27 +117,6 @@ function App(): React.JSX.Element {
 
   //Components
 
-  // Custom input field
-  const InputField: React.FC<{
-    title: string;
-    value: string;
-    multiline?: boolean;
-    onChangeText: (text: string) => void;
-  }> = ({title, value, onChangeText, multiline}) => {
-    return (
-      <>
-        <Text>{title}</Text>
-        <TextInput
-          style={styles.inputText}
-          placeholder={'...'}
-          value={value}
-          onChangeText={onChangeText}
-          multiline={multiline}
-        />
-      </>
-    );
-  };
-
   // counter for rating
   const CounterComponent: React.FC = () => {
     return (
@@ -188,25 +168,40 @@ function App(): React.JSX.Element {
       {/* Title */}
       <Text style={styles.journalingTitle}>Morning journaling</Text>
 
-      <InputField
-        title={'I am grateful for'}
+      <Text>I am grateful for</Text>
+      <TextInput
+        style={styles.inputText}
+        placeholder={'...'}
         value={grateful}
         onChangeText={setGrateful}
+        multiline
       />
-      <InputField
-        title={'What would make today great'}
+
+      <Text>What would make today great</Text>
+      <TextInput
+        style={styles.inputText}
+        placeholder={'...'}
         value={today}
         onChangeText={setToday}
+        multiline
       />
-      <InputField
-        title={'Daily affirmations, I am...'}
+
+      <Text>Daily affirmations, I am...</Text>
+      <TextInput
+        style={styles.inputText}
+        placeholder={'...'}
         value={affirmations}
         onChangeText={setAffirmations}
+        multiline
       />
-      <InputField
-        title={"Todays' intention"}
+
+      <Text>Todays' intention</Text>
+      <TextInput
+        style={styles.inputText}
+        placeholder={'...'}
         value={intention}
         onChangeText={setIntention}
+        multiline
       />
     </>
   );
@@ -227,22 +222,30 @@ function App(): React.JSX.Element {
 
         {/* InputFields */}
         <>
-          <InputField
+          <Text>I thank myself today for...</Text>
+          <TextInput
+            style={styles.inputText}
+            placeholder={'...'}
             value={thank}
             onChangeText={setThank}
             multiline
-            title="I thank myself today for..."
           />
-          <InputField
+
+          <Text>3 great things that happened today...</Text>
+          <TextInput
+            style={styles.inputText}
+            placeholder={'...'}
             value={greatThings}
             onChangeText={setGreatThings}
             multiline
-            title="3 great things that happened today..."
           />
-          <InputField
+
+          <Text>5 min. reflection</Text>
+          <TextInput
+            style={styles.inputText}
+            placeholder={'...'}
             value={highlight}
             onChangeText={setHighlight}
-            title="5 min. reflection"
             multiline
           />
         </>
@@ -310,7 +313,7 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   mainView: {
     paddingHorizontal: 10,
-    backgroundColor: '#f0efeb',
+    backgroundColor: appBackgroundColor,
     flex: 1,
     justifyContent: 'center',
     overflow: 'scroll',
@@ -326,7 +329,6 @@ const styles = StyleSheet.create({
   contentView: {
     marginVertical: 15,
     paddingHorizontal: 15,
-    // backgroundColor: '#FAF8F5',
     paddingVertical: 20,
   },
   inputText: {
