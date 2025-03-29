@@ -404,7 +404,6 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 2,
     marginTop: 20,
-    overflow: 'hidden',
   },
   submitButtonText: {
     fontSize: 18,
