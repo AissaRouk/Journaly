@@ -32,7 +32,7 @@ function App(): React.JSX.Element {
   const [highlight, setHighlight] = useState<string>('');
   const counter: number[] = [1, 2, 3, 4, 5];
   //time states
-  const [isNight, setIsNight] = useState<boolean>(false);
+  const [isNight, setIsNight] = useState<boolean>(true);
 
   //state for the modal
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -85,7 +85,7 @@ function App(): React.JSX.Element {
   useEffect(() => {
     const checkTime = () => {
       const hours = new Date().getHours(); // Get current hour (0-23)
-      setIsNight(hours >= 18 || hours < 6); // Night is from 6 PM to 6 AM
+      // setIsNight(hours >= 18 || hours < 6); // Night is from 6 PM to 6 AM
     };
 
     checkTime(); // Run on mount
@@ -211,6 +211,8 @@ function App(): React.JSX.Element {
   const NigthInputs: React.FC = () => {
     return (
       <>
+        {/* Title */}
+        <Text style={styles.journalingTitle}>Night journaling</Text>
         <Text
           style={[{textAlign: 'center', marginBottom: 15}, styles.ratingText]}>
           Rate today from 1 to 5
@@ -224,11 +226,13 @@ function App(): React.JSX.Element {
           <InputField
             value={thank}
             onChangeText={setThank}
+            multiline
             title="I thank myself today for..."
           />
           <InputField
             value={greatThings}
             onChangeText={setGreatThings}
+            multiline
             title="3 great things that happened today..."
           />
           <InputField
