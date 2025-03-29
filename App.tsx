@@ -272,18 +272,11 @@ function App(): React.JSX.Element {
       </View>
 
       {/* Submit button */}
-      {/* <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: appBackgroundColor,
-        }}> */}
       <TouchableOpacity
         onPress={() => handleOnSubmit()}
         style={styles.submitButton}>
         <Text style={styles.submitButtonText}>Submit</Text>
       </TouchableOpacity>
-      {/* </View> */}
 
       {/* Modal */}
       <Modal
