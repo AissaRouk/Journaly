@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {appBackgroundColor} from './Src/Utils/Styles';
 
 function App(): React.JSX.Element {
   // state for loading
@@ -271,19 +272,18 @@ function App(): React.JSX.Element {
       </View>
 
       {/* Submit button */}
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <TouchableOpacity
-          onPress={() => handleOnSubmit()}
-          style={{
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            borderWidth: 0.5,
-            borderColor: 'black',
-            borderRadius: 5,
-          }}>
-          <Text>Submit</Text>
-        </TouchableOpacity>
-      </View>
+      {/* <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: appBackgroundColor,
+        }}> */}
+      <TouchableOpacity
+        onPress={() => handleOnSubmit()}
+        style={styles.submitButton}>
+        <Text style={styles.submitButtonText}>Submit</Text>
+      </TouchableOpacity>
+      {/* </View> */}
 
       {/* Modal */}
       <Modal
@@ -316,8 +316,8 @@ function App(): React.JSX.Element {
 
 const styles = StyleSheet.create({
   mainView: {
-    marginHorizontal: 10,
-    backgroundColor: '#FAF8F5',
+    paddingHorizontal: 10,
+    backgroundColor: '#f0efeb',
     flex: 1,
     justifyContent: 'center',
     overflow: 'scroll',
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
   contentView: {
     marginVertical: 15,
     paddingHorizontal: 15,
-    backgroundColor: '#FAF8F5',
+    // backgroundColor: '#FAF8F5',
     paddingVertical: 20,
   },
   inputText: {
@@ -357,6 +357,7 @@ const styles = StyleSheet.create({
   },
   journalingTitle: {
     textAlign: 'center',
+    fontFamily: 'serif',
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 30,
@@ -391,7 +392,7 @@ const styles = StyleSheet.create({
     color: '#4F4F4F',
   },
   submitButton: {
-    backgroundColor: '#E3D5C9',
+    backgroundColor: '#be5d42',
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 10,
@@ -400,9 +401,10 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 3},
     shadowOpacity: 0.1,
-    shadowRadius: 5,
+    shadowRadius: 10,
     elevation: 2,
     marginTop: 20,
+    overflow: 'hidden',
   },
   submitButtonText: {
     fontSize: 18,
