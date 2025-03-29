@@ -96,8 +96,11 @@ function App(): React.JSX.Element {
   }, []);
 
   const handleOnSubmit = () => {
-    //if all forms filled, show success modal
-    if (intention && grateful && today && affirmations) {
+    //if all forms filled (night forms or day forms), show success modal
+    if (
+      (intention && grateful && today && affirmations) ||
+      (todaysRating && thank && greatThings && highlight && counter)
+    ) {
       setSubmitted(true);
       setIntention('');
       setGrateful('');
