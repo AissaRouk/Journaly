@@ -133,32 +133,6 @@ function App(): React.JSX.Element {
     );
   };
 
-  //all the inputs of the day
-  const MorningInputs: React.FC = () => (
-    <>
-      <InputField
-        title={'I am grateful for'}
-        value={grateful}
-        onChangeText={setGrateful}
-      />
-      <InputField
-        title={'What would make today great'}
-        value={today}
-        onChangeText={setToday}
-      />
-      <InputField
-        title={'Daily affirmations, I am...'}
-        value={affirmations}
-        onChangeText={setAffirmations}
-      />
-      <InputField
-        title={"Todays' intention"}
-        value={intention}
-        onChangeText={setIntention}
-      />
-    </>
-  );
-
   // counter for rating
   const CounterComponent: React.FC = () => {
     return (
@@ -203,6 +177,35 @@ function App(): React.JSX.Element {
       </ScrollView>
     );
   };
+
+  //all the inputs of the day
+  const MorningInputs: React.FC = () => (
+    <>
+      {/* Title */}
+      <Text style={styles.journalingTitle}>Morning journaling</Text>
+
+      <InputField
+        title={'I am grateful for'}
+        value={grateful}
+        onChangeText={setGrateful}
+      />
+      <InputField
+        title={'What would make today great'}
+        value={today}
+        onChangeText={setToday}
+      />
+      <InputField
+        title={'Daily affirmations, I am...'}
+        value={affirmations}
+        onChangeText={setAffirmations}
+      />
+      <InputField
+        title={"Todays' intention"}
+        value={intention}
+        onChangeText={setIntention}
+      />
+    </>
+  );
 
   //all the inputs of the night
   const NigthInputs: React.FC = () => {
@@ -320,13 +323,6 @@ const styles = StyleSheet.create({
 
     paddingVertical: 20,
   },
-  switchStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    marginBottom: 15,
-  },
   inputText: {
     width: '100%',
     borderBottomWidth: 1,
@@ -345,6 +341,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#4F4F4F',
     marginVertical: 10,
+  },
+  journalingTitle: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: 30,
   },
   ratingContainer: {
     flexDirection: 'row',
