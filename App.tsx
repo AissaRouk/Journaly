@@ -42,7 +42,6 @@ function App(): React.JSX.Element {
   // fetching the quote
   useEffect(() => {
     //fetching the quote from an API
-    console.log('fetching quote');
     const fetchQuote = async () => {
       try {
         const response = await fetch('https://zenquotes.io/api/today');
