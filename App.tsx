@@ -174,10 +174,17 @@ function App(): React.JSX.Element {
 
         {/* Daily quote */}
         {quote && !error && (
-          <>
+          <View
+            style={{
+              borderColor: '#be5d42',
+              borderWidth: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingVertical: 20,
+            }}>
             <Text style={styles.quote}>{quote}</Text>
-            <Text style={[styles.quote, {marginBottom: 30}]}>{author}</Text>
-          </>
+            <Text style={[styles.quote]}>{author}</Text>
+          </View>
         )}
 
         {/* Input components depending on the daytime */}
@@ -185,11 +192,7 @@ function App(): React.JSX.Element {
           <>
             {/* Title */}
             <Text style={styles.journalingTitle}>Night journaling</Text>
-            <Text
-              style={[
-                {textAlign: 'center', marginBottom: 15},
-                styles.ratingText,
-              ]}>
+            <Text style={[{marginBottom: 15}, styles.ratingText]}>
               Rate today from 1 to 5
             </Text>
 
@@ -198,7 +201,7 @@ function App(): React.JSX.Element {
 
             {/* InputFields */}
             <>
-              <Text>I thank myself today for...</Text>
+              <Text style={styles.ratingText}>I thank myself today for...</Text>
               <TextInput
                 style={styles.inputText}
                 placeholder={'...'}
@@ -207,7 +210,9 @@ function App(): React.JSX.Element {
                 multiline
               />
 
-              <Text>3 great things that happened today...</Text>
+              <Text style={styles.ratingText}>
+                3 great things that happened today...
+              </Text>
               <TextInput
                 style={styles.inputText}
                 placeholder={'...'}
@@ -216,7 +221,7 @@ function App(): React.JSX.Element {
                 multiline
               />
 
-              <Text>5 min. reflection</Text>
+              <Text style={styles.ratingText}>5 min. reflection</Text>
               <TextInput
                 style={styles.inputText}
                 placeholder={'...'}
@@ -231,7 +236,7 @@ function App(): React.JSX.Element {
             {/* Title */}
             <Text style={styles.journalingTitle}>Morning journaling</Text>
 
-            <Text>I am grateful for</Text>
+            <Text style={styles.ratingText}>I am grateful for</Text>
             <TextInput
               style={styles.inputText}
               placeholder={'...'}
@@ -240,7 +245,7 @@ function App(): React.JSX.Element {
               multiline
             />
 
-            <Text>What would make today great</Text>
+            <Text style={styles.ratingText}>What would make today great</Text>
             <TextInput
               style={styles.inputText}
               placeholder={'...'}
@@ -249,7 +254,7 @@ function App(): React.JSX.Element {
               multiline
             />
 
-            <Text>Daily affirmations, I am...</Text>
+            <Text style={styles.ratingText}>Daily affirmations, I am...</Text>
             <TextInput
               style={styles.inputText}
               placeholder={'...'}
@@ -258,7 +263,7 @@ function App(): React.JSX.Element {
               multiline
             />
 
-            <Text>Todays' intention</Text>
+            <Text style={styles.ratingText}>Todays' intention</Text>
             <TextInput
               style={styles.inputText}
               placeholder={'...'}
@@ -318,7 +323,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 20,
     fontFamily: 'serif',
     color: '#2E2E2E',
   },
@@ -344,7 +348,6 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     textAlign: 'center',
     color: '#4F4F4F',
-    marginVertical: 10,
   },
   journalingTitle: {
     textAlign: 'center',
@@ -352,6 +355,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 30,
+    marginTop: 20,
   },
   ratingContainer: {
     flexDirection: 'row',
