@@ -167,7 +167,7 @@ function App(): React.JSX.Element {
     <View style={styles.mainView}>
       <Text style={styles.title}>Diary</Text>
 
-      {/* Day journaling */}
+      {/* Content journaling */}
       <View style={styles.contentView}>
         {/* Activity Indicator */}
         {loading && <ActivityIndicator size={'large'} color={'black'} />}
