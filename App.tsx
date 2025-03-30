@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Modal,
@@ -162,96 +162,7 @@ function App(): React.JSX.Element {
     );
   };
 
-  //all the inputs of the day
-  const MorningInputs: React.FC = () => (
-    <>
-      {/* Title */}
-      <Text style={styles.journalingTitle}>Morning journaling</Text>
-
-      <Text>I am grateful for</Text>
-      <TextInput
-        style={styles.inputText}
-        placeholder={'...'}
-        value={grateful}
-        onChangeText={setGrateful}
-        multiline
-      />
-
-      <Text>What would make today great</Text>
-      <TextInput
-        style={styles.inputText}
-        placeholder={'...'}
-        value={today}
-        onChangeText={setToday}
-        multiline
-      />
-
-      <Text>Daily affirmations, I am...</Text>
-      <TextInput
-        style={styles.inputText}
-        placeholder={'...'}
-        value={affirmations}
-        onChangeText={setAffirmations}
-        multiline
-      />
-
-      <Text>Todays' intention</Text>
-      <TextInput
-        style={styles.inputText}
-        placeholder={'...'}
-        value={intention}
-        onChangeText={setIntention}
-        multiline
-      />
-    </>
-  );
-
   //all the inputs of the night
-  const NigthInputs: React.FC = () => {
-    return (
-      <>
-        {/* Title */}
-        <Text style={styles.journalingTitle}>Night journaling</Text>
-        <Text
-          style={[{textAlign: 'center', marginBottom: 15}, styles.ratingText]}>
-          Rate today from 1 to 5
-        </Text>
-
-        {/* Counter component */}
-        <CounterComponent />
-
-        {/* InputFields */}
-        <>
-          <Text>I thank myself today for...</Text>
-          <TextInput
-            style={styles.inputText}
-            placeholder={'...'}
-            value={thank}
-            onChangeText={setThank}
-            multiline
-          />
-
-          <Text>3 great things that happened today...</Text>
-          <TextInput
-            style={styles.inputText}
-            placeholder={'...'}
-            value={greatThings}
-            onChangeText={setGreatThings}
-            multiline
-          />
-
-          <Text>5 min. reflection</Text>
-          <TextInput
-            style={styles.inputText}
-            placeholder={'...'}
-            value={highlight}
-            onChangeText={setHighlight}
-            multiline
-          />
-        </>
-      </>
-    );
-  };
 
   return (
     <View style={styles.mainView}>
@@ -271,7 +182,93 @@ function App(): React.JSX.Element {
         )}
 
         {/* Input components depending on the daytime */}
-        {isNight ? <NigthInputs /> : <MorningInputs />}
+        {isNight ? (
+          <>
+            {/* Title */}
+            <Text style={styles.journalingTitle}>Night journaling</Text>
+            <Text
+              style={[
+                {textAlign: 'center', marginBottom: 15},
+                styles.ratingText,
+              ]}>
+              Rate today from 1 to 5
+            </Text>
+
+            {/* Counter component */}
+            <CounterComponent />
+
+            {/* InputFields */}
+            <>
+              <Text>I thank myself today for...</Text>
+              <TextInput
+                style={styles.inputText}
+                placeholder={'...'}
+                value={thank}
+                onChangeText={setThank}
+                multiline
+              />
+
+              <Text>3 great things that happened today...</Text>
+              <TextInput
+                style={styles.inputText}
+                placeholder={'...'}
+                value={greatThings}
+                onChangeText={setGreatThings}
+                multiline
+              />
+
+              <Text>5 min. reflection</Text>
+              <TextInput
+                style={styles.inputText}
+                placeholder={'...'}
+                value={highlight}
+                onChangeText={setHighlight}
+                multiline
+              />
+            </>
+          </>
+        ) : (
+          <>
+            {/* Title */}
+            <Text style={styles.journalingTitle}>Morning journaling</Text>
+
+            <Text>I am grateful for</Text>
+            <TextInput
+              style={styles.inputText}
+              placeholder={'...'}
+              value={grateful}
+              onChangeText={setGrateful}
+              multiline
+            />
+
+            <Text>What would make today great</Text>
+            <TextInput
+              style={styles.inputText}
+              placeholder={'...'}
+              value={today}
+              onChangeText={setToday}
+              multiline
+            />
+
+            <Text>Daily affirmations, I am...</Text>
+            <TextInput
+              style={styles.inputText}
+              placeholder={'...'}
+              value={affirmations}
+              onChangeText={setAffirmations}
+              multiline
+            />
+
+            <Text>Todays' intention</Text>
+            <TextInput
+              style={styles.inputText}
+              placeholder={'...'}
+              value={intention}
+              onChangeText={setIntention}
+              multiline
+            />
+          </>
+        )}
       </View>
 
       {/* Submit button */}
