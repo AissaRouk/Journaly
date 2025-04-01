@@ -10,8 +10,11 @@ import {
   View,
 } from 'react-native';
 import {appBackgroundColor} from './Src/Utils/Styles';
+import {useStorageStates} from './Src/Utils/Hooks/storageHooks';
 
 function App(): React.JSX.Element {
+  // MMKV storage variable
+
   // state for loading
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -20,18 +23,29 @@ function App(): React.JSX.Element {
   const [author, setAuthor] = useState<string>();
   const [error, setError] = useState<any>(null);
 
-  //states for the InputText's
-  //morning inputs
-  const [intention, setIntention] = useState<string>('');
-  const [grateful, setGrateful] = useState<string>('');
-  const [today, setToday] = useState<string>('');
-  const [affirmations, setAffirmations] = useState<string>('');
-  //night iputs
-  const [todaysRating, setTodaysRating] = useState<number>();
-  const [thank, setThank] = useState<string>('');
-  const [greatThings, setGreatThings] = useState<string>('');
-  const [highlight, setHighlight] = useState<string>('');
-  const counter: number[] = [1, 2, 3, 4, 5];
+  // Access MMKV storage states
+  const {
+    intention,
+    setIntention,
+    grateful,
+    setGrateful,
+    today,
+    setToday,
+    affirmations,
+    setAffirmations,
+    todaysRating,
+    setTodaysRating,
+    thank,
+    setThank,
+    greatThings,
+    setGreatThings,
+    highlight,
+    setHighlight,
+    counter,
+    isMorningJournalingFilled,
+    setIsMorningJournalingFilled,
+  } = useStorageStates();
+
   //time states
   const [isNight, setIsNight] = useState<boolean>(true);
 
