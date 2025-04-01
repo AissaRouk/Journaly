@@ -16,25 +16,24 @@ export const useStorageStates = () => {
   );
 
   //   states for the night inputs
-  const [todaysRating, setTodaysRating] = useMMKVStorage(
-    'intention',
+  const [todaysRating, setTodaysRating] = useMMKVStorage<number>(
+    'todaysRating',
     storage,
     0,
   );
-  const [thank, setThank] = useMMKVStorage('intention', storage, '');
+  const [thank, setThank] = useMMKVStorage('thank', storage, '');
   const [greatThings, setGreatThings] = useMMKVStorage(
-    'intention',
+    'greatThings',
     storage,
     '',
   );
-  const [highlight, setHighlight] = useMMKVStorage('intention', storage, '');
-  const counter: number[] = [1, 2, 3, 4, 5];
+  const [highlight, setHighlight] = useMMKVStorage('highlight', storage, '');
 
   //states for control
 
   // State to track whether the morning journaling has been completed
   const [isMorningJournalingFilled, setIsMorningJournalingFilled] =
-    useMMKVStorage('', storage, false);
+    useMMKVStorage('isMorningJournalingFilled', storage, false);
 
   return {
     intention,
@@ -53,7 +52,6 @@ export const useStorageStates = () => {
     setGreatThings,
     highlight,
     setHighlight,
-    counter,
     isMorningJournalingFilled,
     setIsMorningJournalingFilled,
   };
