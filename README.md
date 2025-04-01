@@ -1,97 +1,91 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Journaly
 
-# Getting Started
+Journaly is a gratitude and reflection journal application that encourages daily journaling to promote mindfulness and self-awareness.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- **Daily Entries**: Write and reflect on your thoughts and experiences each day.
+- **Sentiment Analysis**: Analyze the sentiment of your journal entries to gain insights into your emotional well-being.
+- **User Profiles**: Create a personal profile to manage your entries and interact with the community.
+- **Community Engagement**: Share your reflections and read entries from other users to foster a supportive environment.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Installation
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+To set up the Journaly app on your local machine, follow these steps:
 
-```sh
-# Using npm
-npm start
+1. **Clone the Repository**:
 
-# OR using Yarn
-yarn start
-```
+   ```bash
+   git clone https://github.com/AissaRouk/Journaly.git
+   ```
 
-## Step 2: Build and run your app
+2. **Navigate to the Project Directory**:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+   ```bash
+   cd Journaly
+   ```
 
-### Android
+3. **Install Dependencies**:
 
-```sh
-# Using npm
-npm run android
+   ```bash
+   npm install
+   ```
 
-# OR using Yarn
-yarn android
-```
+4. **Start the Metro Bundler**:
 
-### iOS
+   ```bash
+   npx react-native start
+   ```
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+5. **Run the Application**:
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+   - For Android:
 
-```sh
-bundle install
-```
+     ```bash
+     npx react-native run-android
+     ```
 
-Then, and every time you update your native dependencies, run:
+   - For iOS:
 
-```sh
-bundle exec pod install
-```
+     ```bash
+     npx react-native run-ios
+     ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+   > **Note**: Ensure you have the necessary environment set up for React Native development. Refer to the [React Native Environment Setup](https://reactnative.dev/docs/environment-setup) guide for detailed instructions.
 
-```sh
-# Using npm
-npm run ios
+## Contributing
 
-# OR using Yarn
-yarn ios
-```
+We welcome contributions to enhance Journaly's features and usability. To contribute:
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+1. **Fork the Repository**: Click on the 'Fork' button at the top right of the repository page.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+2. **Create a New Branch**:
 
-## Step 3: Modify your app
+   ```bash
+   git checkout -b feature/YourFeatureName
+   ```
 
-Now that you have successfully run the app, let's make changes!
+3. **Make Your Changes**: Implement your feature or fix.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+4. **Commit Your Changes**:
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+   ```bash
+   git commit -m "Add feature: YourFeatureName"
+   ```
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+5. **Push to Your Fork**:
 
-## Congratulations! :tada:
+   ```bash
+   git push origin feature/YourFeatureName
+   ```
 
-You've successfully run and modified your React Native App. :partying_face:
+6. **Submit a Pull Request**: Navigate to the original repository and click on 'New Pull Request'.
 
-### Now what?
+## License
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+This project is licensed under the [MIT License](LICENSE).
 
-# Troubleshooting
+---
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+*For more information and updates, visit the [Journaly GitHub Repository](https://github.com/AissaRouk/Journaly).*
 
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
