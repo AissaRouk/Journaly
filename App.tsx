@@ -23,6 +23,9 @@ function App(): React.JSX.Element {
   const [author, setAuthor] = useState<string>();
   const [error, setError] = useState<any>(null);
 
+  //state for the counter
+  const counter: number[] = [1, 2, 3, 4, 5]; // Ensure this is defined and populated
+
   // Access MMKV storage states
   const {
     intention,
@@ -41,7 +44,6 @@ function App(): React.JSX.Element {
     setGreatThings,
     highlight,
     setHighlight,
-    counter,
     isMorningJournalingFilled,
     setIsMorningJournalingFilled,
   } = useStorageStates();
@@ -82,6 +84,7 @@ function App(): React.JSX.Element {
       const timer = setTimeout(() => {
         setSubmitted(false);
       }, 3000); // Hide message after 3 seconds
+      setIsMorningJournalingFilled(true);
       return () => clearTimeout(timer);
     }
   }, [submitted]);
@@ -100,7 +103,7 @@ function App(): React.JSX.Element {
   useEffect(() => {
     const checkTime = () => {
       const hours = new Date().getHours(); // Get current hour (0-23)
-      setIsNight(false); // Night is from 6 PM to 6 AM
+      setIsNight(hours >= 18 && hours <= 23); // Night is from 6 PM to 6 AM
     };
 
     checkTime(); // Run on mount
