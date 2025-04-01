@@ -178,177 +178,188 @@ function App(): React.JSX.Element {
   //all the inputs of the night
 
   return (
-    <View style={styles.mainView}>
-      <Text style={styles.title}>Diary</Text>
+    <ScrollView
+      contentContainerStyle={styles.scrollViewContent} // Ensures proper padding and alignment
+      keyboardShouldPersistTaps="handled" // Allows tapping outside inputs to dismiss the keyboard
+    >
+      <View style={styles.mainView}>
+        <Text style={styles.title}>Diary</Text>
 
-      {/* Content journaling */}
-      <View style={styles.contentView}>
-        {/* Activity Indicator */}
-        {loading && <ActivityIndicator size={'large'} color={'black'} />}
+        {/* Content journaling */}
+        <View style={styles.contentView}>
+          {/* Activity Indicator */}
+          {loading && <ActivityIndicator size={'large'} color={'black'} />}
 
-        {/* Daily quote */}
-        {quote && !error && (
-          <View
-            style={{
-              borderColor: '#be5d42',
-              borderWidth: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingVertical: 20,
-            }}>
-            <Text style={styles.quote}>{quote}</Text>
-            <Text style={[styles.quote]}>{author}</Text>
-          </View>
-        )}
+          {/* Daily quote */}
+          {quote && !error && (
+            <View
+              style={{
+                borderColor: '#be5d42',
+                borderWidth: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingVertical: 20,
+              }}>
+              <Text style={styles.quote}>{quote}</Text>
+              <Text style={[styles.quote]}>{author}</Text>
+            </View>
+          )}
 
-        {/* Input components depending on the daytime */}
-        {isNight ? (
-          // Night Inputs
-          <>
-            {/* Title */}
-            <Text style={styles.journalingTitle}>Night journaling</Text>
-            <Text style={[{marginBottom: 15}, styles.ratingText]}>
-              Rate today from 1 to 5
-            </Text>
-
-            {/* Counter component */}
-            <CounterComponent />
-
-            {/* InputFields */}
+          {/* Input components depending on the daytime */}
+          {isNight ? (
+            // Night Inputs
             <>
-              <Text style={styles.ratingText}>I thank myself today for...</Text>
-              <TextInput
-                style={styles.inputText}
-                placeholder={'...'}
-                value={thank}
-                onChangeText={setThank}
-                multiline
-                scrollEnabled
-                numberOfLines={3} // Sets the initial number of lines
-                textAlignVertical="top" // Ensures text starts at the top
-              />
-
-              <Text style={styles.ratingText}>
-                3 great things that happened today...
+              {/* Title */}
+              <Text style={styles.journalingTitle}>Night journaling</Text>
+              <Text style={[{marginBottom: 15}, styles.ratingText]}>
+                Rate today from 1 to 5
               </Text>
+
+              {/* Counter component */}
+              <CounterComponent />
+
+              {/* InputFields */}
+              <>
+                <Text style={styles.ratingText}>
+                  I thank myself today for...
+                </Text>
+                <TextInput
+                  style={styles.inputText}
+                  placeholder={'...'}
+                  value={thank}
+                  onChangeText={setThank}
+                  multiline
+                  scrollEnabled
+                  numberOfLines={3} // Sets the initial number of lines
+                  textAlignVertical="top" // Ensures text starts at the top
+                />
+
+                <Text style={styles.ratingText}>
+                  3 great things that happened today...
+                </Text>
+                <TextInput
+                  style={styles.inputText}
+                  placeholder={'...'}
+                  value={greatThings}
+                  onChangeText={setGreatThings}
+                  multiline
+                  scrollEnabled
+                  numberOfLines={3} // Sets the initial number of lines
+                  textAlignVertical="top" // Ensures text starts at the top
+                />
+
+                <Text style={styles.ratingText}>5 min. reflection</Text>
+                <TextInput
+                  style={styles.inputText}
+                  placeholder={'...'}
+                  value={highlight}
+                  onChangeText={setHighlight}
+                  multiline
+                  scrollEnabled
+                  numberOfLines={3} // Sets the initial number of lines
+                  textAlignVertical="top" // Ensures text starts at the top
+                />
+              </>
+            </>
+          ) : (
+            // Morning Inputs
+            <>
+              {/* Title */}
+              <Text style={styles.journalingTitle}>Morning journaling</Text>
+
+              <Text style={styles.ratingText}>I am grateful for</Text>
               <TextInput
-                style={styles.inputText}
+                style={[styles.inputText, {height: 60}]} // Approximate height for 3 lines
                 placeholder={'...'}
-                value={greatThings}
-                onChangeText={setGreatThings}
+                value={grateful}
+                onChangeText={setGrateful}
                 multiline
                 scrollEnabled
                 numberOfLines={3} // Sets the initial number of lines
                 textAlignVertical="top" // Ensures text starts at the top
               />
 
-              <Text style={styles.ratingText}>5 min. reflection</Text>
+              <Text style={styles.ratingText}>What would make today great</Text>
               <TextInput
                 style={styles.inputText}
                 placeholder={'...'}
-                value={highlight}
-                onChangeText={setHighlight}
+                value={today}
+                onChangeText={setToday}
+                multiline
+                scrollEnabled
+                numberOfLines={3} // Sets the initial number of lines
+                textAlignVertical="top" // Ensures text starts at the top
+              />
+
+              <Text style={styles.ratingText}>Daily affirmations, I am...</Text>
+              <TextInput
+                style={styles.inputText}
+                placeholder={'...'}
+                value={affirmations}
+                onChangeText={setAffirmations}
+                multiline
+                scrollEnabled
+                numberOfLines={3} // Sets the initial number of lines
+                textAlignVertical="top" // Ensures text starts at the top
+              />
+
+              <Text style={styles.ratingText}>Todays' intention</Text>
+              <TextInput
+                style={styles.inputText}
+                placeholder={'...'}
+                value={intention}
+                onChangeText={setIntention}
                 multiline
                 scrollEnabled
                 numberOfLines={3} // Sets the initial number of lines
                 textAlignVertical="top" // Ensures text starts at the top
               />
             </>
-          </>
-        ) : (
-          // Morning Inputs
-          <>
-            {/* Title */}
-            <Text style={styles.journalingTitle}>Morning journaling</Text>
-
-            <Text style={styles.ratingText}>I am grateful for</Text>
-            <TextInput
-              style={[styles.inputText, {height: 60}]} // Approximate height for 3 lines
-              placeholder={'...'}
-              value={grateful}
-              onChangeText={setGrateful}
-              multiline
-              scrollEnabled
-              numberOfLines={3} // Sets the initial number of lines
-              textAlignVertical="top" // Ensures text starts at the top
-            />
-
-            <Text style={styles.ratingText}>What would make today great</Text>
-            <TextInput
-              style={styles.inputText}
-              placeholder={'...'}
-              value={today}
-              onChangeText={setToday}
-              multiline
-              scrollEnabled
-              numberOfLines={3} // Sets the initial number of lines
-              textAlignVertical="top" // Ensures text starts at the top
-            />
-
-            <Text style={styles.ratingText}>Daily affirmations, I am...</Text>
-            <TextInput
-              style={styles.inputText}
-              placeholder={'...'}
-              value={affirmations}
-              onChangeText={setAffirmations}
-              multiline
-              scrollEnabled
-              numberOfLines={3} // Sets the initial number of lines
-              textAlignVertical="top" // Ensures text starts at the top
-            />
-
-            <Text style={styles.ratingText}>Todays' intention</Text>
-            <TextInput
-              style={styles.inputText}
-              placeholder={'...'}
-              value={intention}
-              onChangeText={setIntention}
-              multiline
-              scrollEnabled
-              numberOfLines={3} // Sets the initial number of lines
-              textAlignVertical="top" // Ensures text starts at the top
-            />
-          </>
-        )}
-      </View>
-
-      {/* Submit button */}
-      <TouchableOpacity
-        onPress={() => handleOnSubmit()}
-        style={styles.submitButton}>
-        <Text style={styles.submitButtonText}>Submit</Text>
-      </TouchableOpacity>
-
-      {/* Modal */}
-      <Modal
-        visible={submitted || errorInSubmition}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={() => {
-          setSubmitted(false);
-          setErrorInSubmition(false);
-        }}>
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            {submitted && (
-              <Text style={styles.modalText}>
-                Great job, another day working on yourself, I'm proud of you!!
-              </Text>
-            )}
-            {errorInSubmition && (
-              <Text style={styles.modalText}>
-                Please fill all the forms, if you don't feel like filling one of
-                them, fill it with a dot
-              </Text>
-            )}
-          </View>
+          )}
         </View>
-      </Modal>
-    </View>
+
+        {/* Submit button */}
+        <TouchableOpacity
+          onPress={() => handleOnSubmit()}
+          style={styles.submitButton}>
+          <Text style={styles.submitButtonText}>Submit</Text>
+        </TouchableOpacity>
+
+        {/* Modal */}
+        <Modal
+          visible={submitted || errorInSubmition}
+          transparent={true}
+          animationType="fade"
+          onRequestClose={() => {
+            setSubmitted(false);
+            setErrorInSubmition(false);
+          }}>
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              {submitted && (
+                <Text style={styles.modalText}>
+                  Great job, another day working on yourself, I'm proud of you!!
+                </Text>
+              )}
+              {errorInSubmition && (
+                <Text style={styles.modalText}>
+                  Please fill all the forms, if you don't feel like filling one
+                  of them, fill it with a dot
+                </Text>
+              )}
+            </View>
+          </View>
+        </Modal>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollViewContent: {
+    flexGrow: 1, // Ensures the content takes up the full height
+    paddingBottom: 20, // Adds some padding at the bottom
+  },
   mainView: {
     paddingHorizontal: 10,
     backgroundColor: appBackgroundColor,
