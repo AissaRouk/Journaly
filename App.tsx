@@ -96,11 +96,11 @@ function App(): React.JSX.Element {
     }
   }, [errorInSubmition]);
 
-  //useEffect to check the time
+  //useEffect to check if it's night or not
   useEffect(() => {
     const checkTime = () => {
       const hours = new Date().getHours(); // Get current hour (0-23)
-      setIsNight(hours >= 18 || hours < 6); // Night is from 6 PM to 6 AM
+      setIsNight(false); // Night is from 6 PM to 6 AM
     };
 
     checkTime(); // Run on mount
@@ -203,6 +203,7 @@ function App(): React.JSX.Element {
 
         {/* Input components depending on the daytime */}
         {isNight ? (
+          // Night Inputs
           <>
             {/* Title */}
             <Text style={styles.journalingTitle}>Night journaling</Text>
@@ -222,6 +223,9 @@ function App(): React.JSX.Element {
                 value={thank}
                 onChangeText={setThank}
                 multiline
+                scrollEnabled
+                numberOfLines={3} // Sets the initial number of lines
+                textAlignVertical="top" // Ensures text starts at the top
               />
 
               <Text style={styles.ratingText}>
@@ -233,6 +237,9 @@ function App(): React.JSX.Element {
                 value={greatThings}
                 onChangeText={setGreatThings}
                 multiline
+                scrollEnabled
+                numberOfLines={3} // Sets the initial number of lines
+                textAlignVertical="top" // Ensures text starts at the top
               />
 
               <Text style={styles.ratingText}>5 min. reflection</Text>
@@ -242,21 +249,28 @@ function App(): React.JSX.Element {
                 value={highlight}
                 onChangeText={setHighlight}
                 multiline
+                scrollEnabled
+                numberOfLines={3} // Sets the initial number of lines
+                textAlignVertical="top" // Ensures text starts at the top
               />
             </>
           </>
         ) : (
+          // Morning Inputs
           <>
             {/* Title */}
             <Text style={styles.journalingTitle}>Morning journaling</Text>
 
             <Text style={styles.ratingText}>I am grateful for</Text>
             <TextInput
-              style={styles.inputText}
+              style={[styles.inputText, {height: 60}]} // Approximate height for 3 lines
               placeholder={'...'}
               value={grateful}
               onChangeText={setGrateful}
               multiline
+              scrollEnabled
+              numberOfLines={3} // Sets the initial number of lines
+              textAlignVertical="top" // Ensures text starts at the top
             />
 
             <Text style={styles.ratingText}>What would make today great</Text>
@@ -266,6 +280,9 @@ function App(): React.JSX.Element {
               value={today}
               onChangeText={setToday}
               multiline
+              scrollEnabled
+              numberOfLines={3} // Sets the initial number of lines
+              textAlignVertical="top" // Ensures text starts at the top
             />
 
             <Text style={styles.ratingText}>Daily affirmations, I am...</Text>
@@ -275,6 +292,9 @@ function App(): React.JSX.Element {
               value={affirmations}
               onChangeText={setAffirmations}
               multiline
+              scrollEnabled
+              numberOfLines={3} // Sets the initial number of lines
+              textAlignVertical="top" // Ensures text starts at the top
             />
 
             <Text style={styles.ratingText}>Todays' intention</Text>
@@ -284,6 +304,9 @@ function App(): React.JSX.Element {
               value={intention}
               onChangeText={setIntention}
               multiline
+              scrollEnabled
+              numberOfLines={3} // Sets the initial number of lines
+              textAlignVertical="top" // Ensures text starts at the top
             />
           </>
         )}
@@ -331,7 +354,6 @@ const styles = StyleSheet.create({
     backgroundColor: appBackgroundColor,
     flex: 1,
     justifyContent: 'center',
-    overflow: 'scroll',
   },
   title: {
     fontSize: 32,
